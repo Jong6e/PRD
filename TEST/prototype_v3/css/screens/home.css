@@ -201,14 +201,98 @@
     color: var(--error);
 }
 
+/* Legacy rebalance-badge style removed - moved to flex item below */
+
+/* =============================================
+   HOME SCREEN - ADDITIONAL FEATURES
+   ============================================= */
+
+/* Summary Header with Update Time */
+.summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.last-update {
+    font-size: 11px;
+    color: var(--text-tertiary);
+    opacity: 0.8;
+}
+
+/* Cash Assets Section */
+.cash-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(var(--primary-rgb), 0.2);
+}
+
+.cash-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.cash-value {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+/* Portfolio Title Row - Removed (using Sub Row instead) */
+/* .portfolio-sub-row added below */
+
+.portfolio-sub-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 4px;
+}
+
+.portfolio-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.notification-icon {
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.8;
+    transition: opacity 0.2s;
+}
+
+.notification-icon.off {
+    opacity: 0.4;
+}
+
+.notification-icon:hover {
+    opacity: 1;
+}
+
+.threshold-badge {
+    font-size: 10px;
+    font-weight: 600;
+    color: var(--text-tertiary);
+    background: var(--bg-surface);
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
 .rebalance-badge {
-    position: absolute;
-    top: 12px;
-    right: 12px;
+    /* Position moved from absolute to flex item */
+    position: static;
+    margin-left: auto;
+    margin-right: 8px;
     background: var(--warning-bg);
     color: var(--warning);
     font-size: 11px;
     font-weight: 600;
     padding: 4px 10px;
     border-radius: var(--radius-pill);
+    white-space: nowrap;
 }

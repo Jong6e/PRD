@@ -70,6 +70,16 @@
 
             <!-- 상태 버튼 컬럼 -->
             <div class="state-column">
+                <!-- 로그인 화면 상태 -->
+                <button class="state-btn" data-for-screens="screen-login" onclick="toggleLoginLoading(this)"
+                    data-title="로그인 로딩">⏳</button>
+                <button class="state-btn" data-for-screens="screen-login" onclick="toggleLoginError(this)"
+                    data-title="로그인 에러">❌</button>
+
+                <!-- 프로필 화면 상태 -->
+                <button class="state-btn" data-for-screens="screen-profile" onclick="toggleProfileLoading(this)"
+                    data-title="프로필 로딩">⏳</button>
+
                 <!-- 홈 화면 상태 -->
                 <button class="state-btn" data-for-screens="screen-home" onclick="toggleLoadingState(this)"
                     data-title="로딩 상태">⏳</button>

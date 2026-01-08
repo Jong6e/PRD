@@ -14,11 +14,19 @@
 
         <div class="home-summary">
             <div class="summary-card">
-                <span class="summary-label">총 평가금액</span>
+                <div class="summary-header">
+                    <span class="summary-label">총 평가금액</span>
+                    <span class="last-update">업데이트: 09:41</span>
+                </div>
                 <span class="summary-value">₩45,230,500</span>
                 <div class="summary-change positive">
                     <span>+₩2,340,200</span>
                     <span>(+5.47%)</span>
+                </div>
+                <!-- 현금 자산 표시 -->
+                <div class="cash-section">
+                    <span class="cash-label">💵 보유 현금</span>
+                    <span class="cash-value">₩1,500,000</span>
                 </div>
             </div>
         </div>
@@ -30,13 +38,21 @@
             </div>
 
             <div class="portfolio-list">
+                <!-- 메인 포트폴리오 (리밸런싱 필요) -->
                 <div class="portfolio-card" onclick="navigateTo('screen-detail')">
                     <div class="portfolio-card-header">
                         <div class="portfolio-color" style="background: var(--gradient-primary);"></div>
                         <div class="portfolio-info">
                             <h4>메인 포트폴리오</h4>
-                            <span class="portfolio-stocks">5종목</span>
+                            <div class="portfolio-sub-row">
+                                <span class="portfolio-stocks">5종목</span>
+                                <div class="portfolio-icons">
+                                    <span class="notification-icon on" title="알림 ON">🔔</span>
+                                    <span class="threshold-badge">5%</span>
+                                </div>
+                            </div>
                         </div>
+                        <div class="rebalance-badge">리밸런싱 필요</div>
                         <span class="portfolio-arrow">›</span>
                     </div>
                     <div class="portfolio-card-body">
@@ -48,16 +64,22 @@
                             <span>+7.23%</span>
                         </div>
                     </div>
-                    <div class="rebalance-badge">리밸런싱 필요</div>
                 </div>
 
+                <!-- 성장주 투자 -->
                 <div class="portfolio-card" onclick="navigateTo('screen-detail')">
                     <div class="portfolio-card-header">
                         <div class="portfolio-color" style="background: linear-gradient(135deg, #6B9080, #4A6F5A);">
                         </div>
                         <div class="portfolio-info">
                             <h4>성장주 투자</h4>
-                            <span class="portfolio-stocks">3종목</span>
+                            <div class="portfolio-sub-row">
+                                <span class="portfolio-stocks">3종목</span>
+                                <div class="portfolio-icons">
+                                    <span class="notification-icon on" title="알림 ON">🔔</span>
+                                    <span class="threshold-badge">3%</span>
+                                </div>
+                            </div>
                         </div>
                         <span class="portfolio-arrow">›</span>
                     </div>
@@ -72,13 +94,20 @@
                     </div>
                 </div>
 
+                <!-- 배당주 모음 -->
                 <div class="portfolio-card" onclick="navigateTo('screen-detail')">
                     <div class="portfolio-card-header">
                         <div class="portfolio-color" style="background: linear-gradient(135deg, #5C8EAD, #3D6B8C);">
                         </div>
                         <div class="portfolio-info">
                             <h4>배당주 모음</h4>
-                            <span class="portfolio-stocks">4종목</span>
+                            <div class="portfolio-sub-row">
+                                <span class="portfolio-stocks">4종목</span>
+                                <div class="portfolio-icons">
+                                    <span class="notification-icon off" title="알림 OFF">🔕</span>
+                                    <span class="threshold-badge">10%</span>
+                                </div>
+                            </div>
                         </div>
                         <span class="portfolio-arrow">›</span>
                     </div>

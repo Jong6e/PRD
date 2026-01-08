@@ -78,7 +78,8 @@
 .chip.selected {
     background: var(--gradient-primary);
     border-color: transparent;
-    color: var(--text-inverse);
+    color: #ffffff;
+    /* Always white */
 }
 
 /* Primary Button */
@@ -88,7 +89,8 @@
     background: var(--gradient-primary);
     border: none;
     border-radius: var(--radius-lg);
-    color: var(--text-inverse);
+    color: #ffffff;
+    /* Always white */
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;

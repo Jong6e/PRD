@@ -148,3 +148,239 @@ function toggleErrorState(btnElement) {
 
     showToast(`Error: ${isOn ? 'ON' : 'OFF'}`);
 }
+
+// =================================================================
+// LOGIN SCREEN STATES
+// =================================================================
+
+let loginLoadingState = false;
+let loginErrorState = false;
+
+/**
+ * Toggle login loading overlay
+ * @param {HTMLElement} btnElement - Button element that triggered the toggle
+ */
+function toggleLoginLoading(btnElement) {
+    loginLoadingState = !loginLoadingState;
+    const isOn = loginLoadingState;
+
+    if (btnElement) btnElement.classList.toggle('active', isOn);
+
+    const overlay = document.getElementById('login-loading-overlay');
+    if (overlay) overlay.style.display = isOn ? 'flex' : 'none';
+
+    // Turn off error if loading is on
+    if (isOn && loginErrorState) {
+        loginErrorState = false;
+        setButtonState('로그인 에러', false);
+        const errorToast = document.getElementById('login-error-toast');
+        if (errorToast) errorToast.style.display = 'none';
+    }
+
+    showToast(`로그인 로딩: ${isOn ? 'ON' : 'OFF'}`);
+}
+
+/**
+ * Toggle login error toast
+ * @param {HTMLElement} btnElement - Button element that triggered the toggle
+ */
+function toggleLoginError(btnElement) {
+    loginErrorState = !loginErrorState;
+    const isOn = loginErrorState;
+
+    if (btnElement) btnElement.classList.toggle('active', isOn);
+
+    const errorToast = document.getElementById('login-error-toast');
+    if (errorToast) errorToast.style.display = isOn ? 'flex' : 'none';
+
+    // Turn off loading if error is on
+    if (isOn && loginLoadingState) {
+        loginLoadingState = false;
+        setButtonState('로그인 로딩', false);
+        const overlay = document.getElementById('login-loading-overlay');
+        if (overlay) overlay.style.display = 'none';
+    }
+
+    showToast(`로그인 에러: ${isOn ? 'ON' : 'OFF'}`);
+}
+
+// =================================================================
+// PROFILE SCREEN STATES
+// =================================================================
+
+let profileLoadingState = false;
+
+/**
+ * Toggle profile loading overlay
+ * @param {HTMLElement} btnElement - Button element that triggered the toggle
+ */
+function toggleProfileLoading(btnElement) {
+    profileLoadingState = !profileLoadingState;
+    const isOn = profileLoadingState;
+
+    if (btnElement) btnElement.classList.toggle('active', isOn);
+
+    const overlay = document.getElementById('profile-loading-overlay');
+    if (overlay) overlay.style.display = isOn ? 'flex' : 'none';
+
+    showToast(`프로필 로딩: ${isOn ? 'ON' : 'OFF'}`);
+}
+
+/**
+ * Validate nickname input (1-20 characters)
+ * @param {HTMLInputElement} inputElement - The nickname input element
+ */
+function validateNickname(inputElement) {
+    const value = inputElement.value.trim();
+    const hint = document.getElementById('nickname-hint');
+    const error = document.getElementById('nickname-error');
+
+    if (value.length < 1 || value.length > 20) {
+        // Invalid
+        if (hint) hint.style.display = 'none';
+        if (error) error.style.display = 'block';
+        inputElement.style.borderColor = 'var(--error)';
+    } else {
+        // Valid
+        if (hint) hint.style.display = 'block';
+        if (error) error.style.display = 'none';
+        inputElement.style.borderColor = '';
+    }
+}
+
+
+// =================================================================
+// DETAIL SCREEN INTERACTIONS
+// =================================================================
+
+/**
+ * Toggle portfolio notification setting
+ */
+/**
+ * Toggle Detail Menu Dropdown
+ */
+function toggleDetailMenu() {
+    const dropdown = document.getElementById('detail-menu-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('show');
+
+        // Close when clicking outside
+        if (dropdown.classList.contains('show')) {
+            setTimeout(() => {
+                document.addEventListener('click', closeDetailMenuOutside);
+            }, 0);
+        }
+    }
+}
+
+function closeDetailMenuOutside(e) {
+    const dropdown = document.getElementById('detail-menu-dropdown');
+    const btn = document.querySelector('.menu-btn');
+
+    if (dropdown && !dropdown.contains(e.target) && !btn.contains(e.target)) {
+        dropdown.classList.remove('show');
+        document.removeEventListener('click', closeDetailMenuOutside);
+    }
+}
+
+/**
+ * Toggle Edit Mode
+ */
+function toggleEditMode() {
+    const screen = document.getElementById('screen-detail');
+    const textSpan = document.getElementById('edit-mode-text');
+    const menuBtn = document.querySelector('.menu-btn');
+    const doneBtn = document.getElementById('edit-done-btn');
+
+    if (screen) {
+        screen.classList.toggle('edit-mode');
+        const isEditMode = screen.classList.contains('edit-mode');
+
+        if (textSpan) {
+            textSpan.textContent = isEditMode ? '편집 완료' : '편집';
+        }
+
+        // Switch between hamburger and done button
+        if (menuBtn && doneBtn) {
+            if (isEditMode) {
+                menuBtn.style.display = 'none';
+                doneBtn.style.display = 'block';
+            } else {
+                menuBtn.style.display = 'block';
+                doneBtn.style.display = 'none';
+            }
+        }
+
+        // Close menu after selection (if entering edit mode from menu)
+        const dropdown = document.getElementById('detail-menu-dropdown');
+        if (dropdown) {
+            dropdown.classList.remove('show');
+            document.removeEventListener('click', closeDetailMenuOutside);
+        }
+
+        showToast(`편집 모드: ${isEditMode ? 'ON' : 'OFF'}`);
+    }
+}
+
+/**
+ * Notification Modal Logic
+ */
+function openNotificationModal() {
+    const modal = document.getElementById('notification-modal');
+    if (modal) {
+        modal.style.display = 'flex';
+
+        // Close menu
+        const dropdown = document.getElementById('detail-menu-dropdown');
+        if (dropdown) {
+            dropdown.classList.remove('show');
+            document.removeEventListener('click', closeDetailMenuOutside);
+        }
+    }
+}
+
+function closeNotificationModal() {
+    const modal = document.getElementById('notification-modal');
+    if (modal) {
+        modal.style.display = 'none';
+        modal.classList.remove('active'); // Just in case
+    }
+}
+
+function saveNotificationSettings() {
+    const toggle = document.getElementById('notification-toggle');
+    const isOn = toggle ? toggle.checked : false;
+
+    showToast(`알림 설정이 저장되었습니다. (전체 알림: ${isOn ? 'ON' : 'OFF'})`);
+    closeNotificationModal();
+}
+
+/**
+ * Toggle Notification Switch Label (Optional)
+ */
+function toggleNotificationToggle(checkbox) {
+    // Logic if needed when toggling inside modal immediately
+}
+
+/**
+ * Simulate stock deletion
+ * @param {Event} event - Click event
+ * @param {string} stockName - Name of the stock to delete
+ */
+function deleteStock(event, stockName) {
+    if (event) {
+        event.stopPropagation(); // Prevent card click event
+    }
+
+    // In a real app, this would show a confirmation modal or delete API call
+    // For prototype, we just remove the element visually or show toast
+    const card = event.target.closest('.stock-card');
+    if (card) {
+        card.style.opacity = '0.5';
+        setTimeout(() => {
+            // card.remove(); // Optional: actually remove it
+            card.style.opacity = '1'; // Restore for demo
+        }, 1000);
+    }
+    showToast(`${stockName} 종목이 삭제되었습니다.`);
+}
